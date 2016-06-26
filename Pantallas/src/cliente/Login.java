@@ -144,6 +144,8 @@ public class Login extends JFrame {
 			JOptionPane.showMessageDialog(null, "Usuario no registrado", // Mensaje
 					"ERROR", // Título
 					JOptionPane.ERROR_MESSAGE); // Tipo de mensaje
+			this.setVisible(true);
+			this.setEnabled(true);
 		}
 	}
 

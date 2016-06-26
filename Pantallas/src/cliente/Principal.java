@@ -65,6 +65,7 @@ public class Principal extends JFrame {
 		JMenu mnUsuario = new JMenu("Usuario");
 		menuBar.add(mnUsuario);
 		
+		mnUsuario.setText(referencia.getJug().getNick());
 		JMenuItem mntmCambiarContrasea = new JMenuItem("Cambiar contrase\u00F1a...");
 		mntmCambiarContrasea.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -97,9 +98,12 @@ public class Principal extends JFrame {
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setShowVerticalLines(false);
+		table.setColumnSelectionAllowed(false);
+		table.setRowSelectionAllowed(true);
+		
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{null, null, null},
+				{"", null, null},
 				{null, null, null},
 				{null, null, null},
 			},
