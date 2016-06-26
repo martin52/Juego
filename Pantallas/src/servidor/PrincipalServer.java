@@ -22,12 +22,16 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 public class PrincipalServer extends JFrame {
 
 	private JPanel contentPane;
 	private LoginAdmin referencia;
-	private JTable table;
+	private JTable tablePartidas;
+	private JTextField TFIP;
+	private JTextField TFPuerto;
+	private boolean isClicked = false;
 
 	/**
 	 * Launch the application.
@@ -60,7 +64,7 @@ public class PrincipalServer extends JFrame {
 		setTitle("Server");
 		
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setBounds(100, 100, 555, 354);
+		setBounds(100, 100, 499, 354);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -80,9 +84,10 @@ public class PrincipalServer extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
-		table = new JTable();
-		table.setToolTipText("kndekqw");
-		table.setModel(new DefaultTableModel(
+		tablePartidas = new JTable();
+		tablePartidas.setShowVerticalLines(false);
+		tablePartidas.setToolTipText("kndekqw");
+		tablePartidas.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null},
 				{null, null, null},
@@ -121,15 +126,28 @@ public class PrincipalServer extends JFrame {
 		
 		JLabel lblNombreDelServidor = new JLabel("Nombre del servidor");
 		
-		JLabel lblIpDelServidor = new JLabel("IP del servidor");
-		
-		JLabel lblPuertoDelServidor = new JLabel("Puerto del servidor");
-		
 		JLabel lblNewLabel_3 = new JLabel("Partida");
 		
 		JLabel lblJugador = new JLabel("Jugador");
 		
 		JLabel lblEstado = new JLabel("Estado");
+		
+		TFIP = new JTextField();
+		TFIP.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if(!isClicked){
+					TFIP.setText("");
+					isClicked = true;
+				}
+			}
+		});
+		TFIP.setText("127.0.0.1");
+		TFIP.setColumns(10);
+		
+		TFPuerto = new JTextField();
+		TFPuerto.setText("5070");
+		TFPuerto.setColumns(10);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -150,24 +168,25 @@ public class PrincipalServer extends JFrame {
 								.addComponent(lblNewLabel_1))
 							.addGap(93)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblIpDelServidor)
-								.addComponent(lblPuertoDelServidor)
+								.addComponent(TFPuerto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(TFIP, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblNombreDelServidor)))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(table, GroupLayout.PREFERRED_SIZE, 447, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(44)
-							.addComponent(lblNewLabel_3)
-							.addGap(110)
-							.addComponent(lblJugador)
-							.addGap(90)
-							.addComponent(lblEstado)))
+							.addComponent(tablePartidas, GroupLayout.PREFERRED_SIZE, 447, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap(68, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+					.addGap(54)
+					.addComponent(lblNewLabel_3)
+					.addPreferredGap(ComponentPlacement.RELATED, 114, Short.MAX_VALUE)
+					.addComponent(lblJugador)
+					.addGap(117)
+					.addComponent(lblEstado)
+					.addGap(63))
 		);
 		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel)
@@ -175,18 +194,18 @@ public class PrincipalServer extends JFrame {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_1)
-						.addComponent(lblIpDelServidor))
+						.addComponent(TFIP, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_2)
-						.addComponent(lblPuertoDelServidor))
+						.addComponent(TFPuerto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_3)
+						.addComponent(lblEstado)
 						.addComponent(lblJugador)
-						.addComponent(lblEstado))
+						.addComponent(lblNewLabel_3))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(table, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(tablePartidas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(51)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnCrearPartida)
