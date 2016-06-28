@@ -4,28 +4,37 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.AbstractMap;
 
+import javax.swing.DefaultListModel;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import base.Prueba;
-import javax.swing.JLabel;
-import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
+
+import javax.swing.JList;
 
 public class Principal extends JFrame {
 
 	public Login referencia;
 	private JPanel contentPane;
-	private JTable table;
+	
+	private JList<String> listPartidas;
+	private DefaultListModel<String> listModelPartidas;
 
 	/**
 	 * Launch the application.
@@ -48,6 +57,7 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal(final Login referencia) {
+		setResizable(false);
 		this.referencia = referencia;
 		setTitle("Principal");
 		addWindowListener(new WindowAdapter() {
@@ -57,7 +67,7 @@ public class Principal extends JFrame {
 			}
 		});
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setBounds(100, 100, 548, 222);
+		setBounds(100, 100, 540, 201);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -95,27 +105,8 @@ public class Principal extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		table = new JTable();
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setShowVerticalLines(false);
-		table.setColumnSelectionAllowed(false);
-		table.setRowSelectionAllowed(true);
-		
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"", null, null},
-				{null, null, null},
-				{null, null, null},
-			},
-			new String[] {
-				"Nombre", "Jugadores", "Estado"
-			}
-		));
-		table.setBounds(29, 40, 473, 48);
-		contentPane.add(table);
-		
 		JButton btnUnirseAPartida = new JButton("Unirse a partida");
-		btnUnirseAPartida.setBounds(31, 101, 142, 23);
+		btnUnirseAPartida.setBounds(12, 101, 142, 23);
 		contentPane.add(btnUnirseAPartida);
 		
 		JButton btnNewButton = new JButton("Estad\u00EDsticas");
@@ -124,7 +115,7 @@ public class Principal extends JFrame {
 				abrirEstadisticas();
 			}
 		});
-		btnNewButton.setBounds(183, 101, 142, 23);
+		btnNewButton.setBounds(166, 101, 142, 23);
 		contentPane.add(btnNewButton);
 		
 		JButton btnTop = new JButton("Top 20");
@@ -133,7 +124,7 @@ public class Principal extends JFrame {
 				abrirTop20();
 			}
 		});
-		btnTop.setBounds(335, 101, 89, 23);
+		btnTop.setBounds(320, 101, 89, 23);
 		contentPane.add(btnTop);
 		
 		JLabel lblPartida = new JLabel("Partida");
@@ -147,6 +138,34 @@ public class Principal extends JFrame {
 		JLabel lblEstado = new JLabel("Estado");
 		lblEstado.setBounds(413, 11, 56, 16);
 		contentPane.add(lblEstado);
+		
+		JButton btnActualizar = new JButton("Actualizar");
+		btnActualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
+		btnActualizar.setBounds(421, 101, 97, 24);
+		contentPane.add(btnActualizar);
+		
+		listModelPartidas = new DefaultListModel<String>();
+		listPartidas = new JList<String>();
+		listPartidas.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent arg0) {
+				String s = listPartidas.getSelectedValue();
+				System.out.println("Seleccionaste la partida "+listPartidas.getSelectedValue());
+				Integer cant = 0;
+				for(AbstractMap.SimpleImmutableEntry<String, Integer> partida : datos) {
+					if(partida.getKey().equals(s)) {
+						cant = partida.getValue();
+					}
+				}
+				lblCantJugadores.setText(cant.toString());
+			}
+		});
+		listPartidas.setBounds(12, 31, 510, 67);
+		listPartidas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		contentPane.add(listPartidas);
 		
 		setVisible(true);
 	}

@@ -27,6 +27,9 @@ public class Server {
 	private HashMap<String, Partida> nombresDePartidas;
 	private HashMap<Partida, DatosPartida> infoPartidas;
 
+	private ArrayList<ThreadServer> partidas;
+	
+	
 	public Server(int puerto, int maxConexiones,
 			PrincipalServer pantallaPrincipal) throws IOException {
 		nombreHost = InetAddress.getLocalHost().getHostName().toString();

@@ -1,5 +1,7 @@
 package Sincronizacion;
 
+import java.util.ArrayList;
+
 import base.Prueba;
 
 public class ThreadServer extends Thread {
@@ -9,6 +11,9 @@ public class ThreadServer extends Thread {
 	private String partida;
 	private boolean running;
 	private boolean partidaCorriendo;
+	
+	private ArrayList<ThreadCliente> jugadores;
+	
 
 	public ThreadServer(Server server, Usuario usuario) {
 		this.servidor = server;
