@@ -47,7 +47,7 @@ public class Principal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Principal(Login referencia) {
+	public Principal(final Login referencia) {
 		this.referencia = referencia;
 		setTitle("Principal");
 		addWindowListener(new WindowAdapter() {

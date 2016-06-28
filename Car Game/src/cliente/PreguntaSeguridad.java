@@ -42,8 +42,8 @@ public class PreguntaSeguridad extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PreguntaSeguridad(Login referenciaLogin,
-			Principal referenciaPrincipal) {
+	public PreguntaSeguridad(final Login referenciaLogin,
+			final Principal referenciaPrincipal) {
 		setJug(referenciaLogin.getJug());
 		
 		this.referenciaLogin = referenciaLogin;

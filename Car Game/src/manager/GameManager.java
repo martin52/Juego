@@ -10,6 +10,7 @@ import display.Display;
 import enemies.EnemyAceite;
 import enemies.EnemyAmarillo;
 import enemies.FuelCar;
+import enemies.OtroJugador;
 import graphics.LoadImage;
 
 public class GameManager {
@@ -21,6 +22,7 @@ public class GameManager {
 	private double fuel;
 	private int score;
 
+	private ArrayList<OtroJugador> eJugadores;
 	private ArrayList<EnemyAmarillo> eMotor;
 	private ArrayList<EnemyAceite> eAceite;
 	private ArrayList<FuelCar> aFuelCar;
