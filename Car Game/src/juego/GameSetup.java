@@ -26,6 +26,8 @@ public class GameSetup implements Runnable {
 	public void init() {
 		display = new Display(title, width, height);
 		manager = new GameManager();
+		
+		//Creo que acá tengo que guardar los datos del GameManager para enviarselos a los demas jugadores
 		manager.init();
 	}
 

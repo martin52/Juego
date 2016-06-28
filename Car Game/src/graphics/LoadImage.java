@@ -16,6 +16,7 @@ public class LoadImage {
 		enemyAmarillo = imageLoader("/enemyAmarillo.gif");
 		enemyAceite = imageLoader("/aceite.gif");
 		fuelCar = imageLoader("/FuelCar.gif");
+		//otros jugadores
 		llegadaTile = imageLoader("/llegada.jpg");
 		crop();
 	}

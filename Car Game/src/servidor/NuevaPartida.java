@@ -71,6 +71,8 @@ public class NuevaPartida extends JFrame {
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
+		textField_1.setText("2");
+		textField_1.setEditable(false);
 		textField_1.setColumns(10);
 		
 		textField_2 = new JTextField();
@@ -102,11 +104,11 @@ public class NuevaPartida extends JFrame {
 							.addComponent(lblCantidadMximaDe)))
 					.addGap(22)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, 216, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnCancelar))
-					.addContainerGap(21, Short.MAX_VALUE))
+						.addComponent(textField_2)
+						.addComponent(textField_1)
+						.addComponent(btnCancelar)
+						.addComponent(textField, GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
+					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -127,7 +129,7 @@ public class NuevaPartida extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnAceptar)
 						.addComponent(btnCancelar))
-					.addContainerGap(112, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 		setVisible(true);

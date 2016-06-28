@@ -8,6 +8,7 @@ import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import servidor.DatosPartida;
 import servidor.PrincipalServer;
 import base.Prueba;
 import cliente.Jugador;
@@ -220,5 +221,20 @@ public class Server {
 				System.out.println("El socket del cliente "+ usuario.getNombre()+" ya estaba cerrado");
 			}
 		}
+	}
+
+	public boolean crearPartida(String nombre) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public String getCantUsuariosEnPartida(String partida) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ArrayList<String> getPartidas() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

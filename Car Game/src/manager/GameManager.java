@@ -22,17 +22,18 @@ public class GameManager {
 	private double fuel;
 	private int score;
 
-	private ArrayList<OtroJugador> eJugadores;
+	private ArrayList<OtroJugador> eJugadores;  //   <-- Preguntar si va acá
 	private ArrayList<EnemyAmarillo> eMotor;
 	private ArrayList<EnemyAceite> eAceite;
 	private ArrayList<FuelCar> aFuelCar;
 
-	public GameManager() {
+	public GameManager() { //Recibe un ArrayList con los datos de los otros jugadores?
 		motor = new Motor();
 		world = new World(motor);
 		eMotor = new ArrayList<EnemyAmarillo>();
 		eAceite = new ArrayList<EnemyAceite>();
 		aFuelCar = new ArrayList<FuelCar>();
+		//eJugadores = Jugadores recibidos por parámetro?;
 		delay = 2000;
 		delayAceite = 2001;
 		fuel = 100;
@@ -180,6 +181,8 @@ public class GameManager {
 			aFuelCar.get(i).tick();
 		}
 
+/////////////////OTROS PLAYERS		
+
 	}
 
 	public void render(Graphics g) {
@@ -197,6 +200,8 @@ public class GameManager {
 		for (int i = 0; i < aFuelCar.size(); i++) {
 			aFuelCar.get(i).render(g);
 		}
-
+//		for (int i = 0; i < eJugadores.size(); i++) {
+//		eJugadores.get(i).render(g);
+//	}		
 	}
 }

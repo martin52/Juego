@@ -19,15 +19,22 @@ import base.Prueba;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
+import java.net.UnknownHostException;
+
 import javax.swing.JPasswordField;
 
 public class Login extends JFrame {
 
 	public Inicial referencia;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JPasswordField passwordField;
+	private JTextField TfUsuario;
+	private JPasswordField PfContraseña;
 	private Jugador jug;
+	private JTextField TfPuerto;
+	private JTextField TfIPServer;
+	
+	private Cliente cliente;
 
 	/**
 	 * Launch the application.
@@ -53,31 +60,31 @@ public class Login extends JFrame {
 			}
 		});
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 422, 253);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblUsuario = new JLabel("Nombre de usuario o Nick");
-		lblUsuario.setBounds(26, 55, 153, 14);
+		JLabel lblUsuario = new JLabel("Nombre de usuario:");
+		lblUsuario.setBounds(26, 85, 153, 14);
 		contentPane.add(lblUsuario);
 
-		textField = new JTextField();
-		textField.setBounds(202, 52, 181, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		TfUsuario = new JTextField();
+		TfUsuario.setBounds(202, 82, 181, 20);
+		contentPane.add(TfUsuario);
+		TfUsuario.setColumns(10);
 
-		JLabel lblContrasea = new JLabel("Contrase\u00F1a");
-		lblContrasea.setBounds(26, 107, 117, 14);
+		JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
+		lblContrasea.setBounds(26, 121, 117, 14);
 		contentPane.add(lblContrasea);
 
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Prueba prueba = new Prueba();
-				jug = new Jugador(textField.getText());
-				if (prueba.verificarPassword(textField.getText(), new String(passwordField.getPassword())))
+				if(conectar())
+				jug = new Jugador(TfUsuario.getText());
+				if (cliente.iniciarSesion(TfUsuario.getText(), new String (PfContraseña.getPassword())))
 					abrirPrincipal();
 				else
 					abrirDialogoError();
@@ -104,7 +111,7 @@ public class Login extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				// if la consulta del usuario existe
-				Jugador jug = new Jugador(textField.getText());
+				Jugador jug = new Jugador(TfUsuario.getText());
 				setJug(jug);
 				abrirPreguntaSeguridad(jug);
 				// si no existe -> "Usuario Inexistente"
@@ -113,9 +120,27 @@ public class Login extends JFrame {
 		lblOlvideMiContrasea.setBounds(54, 148, 197, 14);
 		contentPane.add(lblOlvideMiContrasea);
 
-		passwordField = new JPasswordField();
-		passwordField.setBounds(202, 104, 181, 20);
-		contentPane.add(passwordField);
+		PfContraseña = new JPasswordField();
+		PfContraseña.setBounds(202, 115, 181, 20);
+		contentPane.add(PfContraseña);
+		
+		TfPuerto = new JTextField();
+		TfPuerto.setBounds(202, 48, 181, 22);
+		contentPane.add(TfPuerto);
+		TfPuerto.setColumns(10);
+		
+		TfIPServer = new JTextField();
+		TfIPServer.setBounds(202, 13, 181, 22);
+		contentPane.add(TfIPServer);
+		TfIPServer.setColumns(10);
+		
+		JLabel lblPuerto = new JLabel("Puerto:");
+		lblPuerto.setBounds(26, 51, 56, 16);
+		contentPane.add(lblPuerto);
+		
+		JLabel lblIpDelServer = new JLabel("IP del Server:");
+		lblIpDelServer.setBounds(26, 16, 95, 16);
+		contentPane.add(lblIpDelServer);
 
 		setVisible(true);
 	}
@@ -161,5 +186,54 @@ public class Login extends JFrame {
 		JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrecta.", // Mensaje
 				"ERROR", // Título
 				JOptionPane.ERROR_MESSAGE); // Tipo de mensaje
+	}
+	
+	private boolean conectar(){
+		if(TfIPServer.getText().equals(null) || TfIPServer.getText().equals("")) {
+			JOptionPane.showMessageDialog(null,
+					"Ingrese un servidor al que conectarse.",
+					 "Error",
+					 JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		else if(TfPuerto.getText().equals(null) || TfPuerto.getText().equals("")) {
+			JOptionPane.showMessageDialog(null,
+					"Ingrese un puerto al que conectarse.",
+					 "Error",
+					 JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		else {
+			String server = TfIPServer.getText();
+			int puerto;
+			try {
+				puerto = Integer.parseInt(TfPuerto.getText());
+			}
+			catch(NumberFormatException nfe) {
+				JOptionPane.showMessageDialog(null,
+						"Los datos del puerto son invalidos.\nIngrese un numero entero",
+						 "Error",
+						 JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+			try {
+				cliente = new Cliente(server, puerto);
+				return true;
+			}
+			catch(UnknownHostException e1) {
+	        	JOptionPane.showMessageDialog(null,
+	        			"No se pudo conectar con el servidor.\nPuede que este ocupado o no este en linea.",
+						 "Error",
+						 JOptionPane.ERROR_MESSAGE);
+				return false;
+			}
+	        catch (IOException e2) {
+	            JOptionPane.showMessageDialog(null,
+	            		"No se pudo crear el socket.\nIntentelo nuevamente.",
+						 "Error",
+						 JOptionPane.ERROR_MESSAGE);
+				return false;
+	        }
+		}
 	}
 }

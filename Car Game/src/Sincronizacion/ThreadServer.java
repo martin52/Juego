@@ -24,5 +24,7 @@ public class ThreadServer extends Thread {
 		partidaCorriendo = false;
 	}
 	
-	public synchronized void run(){}
+	public synchronized void run(){
+		
+	}
 }

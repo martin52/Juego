@@ -28,11 +28,14 @@ import base.Prueba;
 
 import javax.swing.JList;
 
+import paquetes.PaqueteBuscarPartida;
+
 public class Principal extends JFrame {
 
 	public Login referencia;
 	private JPanel contentPane;
 	
+	private JButton btnActualizar;
 	private JList<String> listPartidas;
 	private DefaultListModel<String> listModelPartidas;
 
@@ -139,10 +142,16 @@ public class Principal extends JFrame {
 		lblEstado.setBounds(413, 11, 56, 16);
 		contentPane.add(lblEstado);
 		
-		JButton btnActualizar = new JButton("Actualizar");
+		btnActualizar = new JButton("Actualizar");
 		btnActualizar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				cliente.enviarDatosPartida(new PaqueteBuscarPartida());
+				PaqueteBuscarPartida paquete = (PaqueteBuscarPartida) cliente.recibirDatosPartida();
+				datos = paquete.getPartidas();
+				listModelPartidas.clear();
+				for(AbstractMap.SimpleImmutableEntry<String, Integer> partida : datos) {
+					listModelPartidas.addElement(partida.getKey());
+				}
 			}
 		});
 		btnActualizar.setBounds(421, 101, 97, 24);
